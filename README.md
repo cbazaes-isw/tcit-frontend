@@ -1,4 +1,6 @@
 # Getting Started with Create React App
+> [!IMPORTANT]  
+> Developed with `Node v18.17.1` and `NPM v9.6.7`
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
