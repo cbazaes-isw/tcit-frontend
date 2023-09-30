@@ -12,6 +12,7 @@ const PostListItem = ({ post }) => {
 
     const onClick = (id) => {
 
+        // Dispatching post delete instruction.
         dispatch(deletePost(id));
 
     };

@@ -12,13 +12,16 @@ export const postsSlice = createSlice({
   reducers: {
     addPost: (state, action) => {
 
+      // Updating app state when a post is added.
       const post = action.payload;
+
       state.posts.push(post);
-      if (state.filter && post.nombre.includes(state.filter)) state.filtered.push(post);
+      if (state.filter && post.nombre.includes(state.filter)) state.filtered.push(post); // Filtered list also is updated.
 
     },
     deletePost: (state, action) => {
 
+      // Updating app state when a post id deleted.
       const postId = action.payload;
 
       const postIndex = state.posts.findIndex(p => p.id === postId);
@@ -27,6 +30,7 @@ export const postsSlice = createSlice({
     },
     filterPost: (state, action) => {
 
+      // Updating app state when a query occurs.
       state.filter = action.payload;
       state.filtered = state.posts.filter(p => p.nombre.includes(state.filter));
 
@@ -35,7 +39,6 @@ export const postsSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
 export const { addPost, deletePost, filterPost, getAll } = postsSlice.actions
 
 export default postsSlice.reducer

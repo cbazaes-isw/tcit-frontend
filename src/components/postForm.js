@@ -15,18 +15,22 @@ let AddPost = () => {
                 
                 e.preventDefault();
 
+                // Little validation on nombre and descripcion values.
                 if (!nombre.value.trim() || !descripcion.value.trim()) {
                     return;
                 }
 
+                // Preparing post object to be dispatched.
                 let post = {
                     id : parseInt(Math.random() * 1000),
                     nombre: nombre.value,
                     descripcion: descripcion.value
                 };
 
+                // Dispatch post creation.
                 dispatch(addPost(post));
                 
+                // Reset form.
                 nombre.value = '';
                 descripcion.value = '';
 
@@ -44,6 +48,5 @@ let AddPost = () => {
         </div>
     )
 }
-// AddPost = connect()(AddPost);
 
 export default AddPost;

@@ -10,6 +10,7 @@ const PostFilter = () => {
     
     const queryPosts = (query) => {
 
+        // Dispacth query instruction.
         dispatch(filterPost(query))
 
     }

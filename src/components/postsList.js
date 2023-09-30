@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux'
 
 const PostsList = () => {
 
+  // This list needs to be updated each time a post
+  // creation, post elimination or post filtering ocurrs.
   const posts = useSelector(state => state.filter ? state.filtered : state.posts)
-
-  // console.log('PostsList', posts);
 
   return <table>
     < thead >
