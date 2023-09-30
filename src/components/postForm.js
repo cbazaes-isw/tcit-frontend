@@ -1,79 +1,49 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React from 'react';
+import { useDispatch } from 'react-redux'
+import { addPost } from '../features/postsSlice'
 
-const PostForm = (props) => {
+let AddPost = () => {
 
-    const [post, setPost] = useState({
-        nombre: props.post ? props.post.nombre : '',
-        descripcion: props.post ? props.post.descripcion : ''
-    });
+    const dispatch = useDispatch();
 
-    const [errorMsg, setErrorMsg] = useState('');
-    const { nombre, descripcion } = post;
-
-    const handleOnSubmit = (event) => {
-        event.preventDefault();
-        const values = [nombre, descripcion];
-        let errorMessage = '';
-
-        const fillupFields = values.every(f => {
-            const value = `${f}`.trim();
-            return value !== '' && value !== '0';
-        });
-
-        if (fillupFields) {
-            const post = {
-                nombre,
-                descripcion
-            };
-            props.handleOnSubmit(post);
-        } else {
-            errorMessage = 'Por favor, rellene todos los campos.';
-        }
-        setErrorMsg(errorMessage);
-    };
-
-    const handleInputChange = (event) => {
-        
-        const { name, value } = event.target;
-
-        setPost(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-
-    };
+    let nombre;
+    let descripcion;
 
     return (
-        <div className="main-form">
-            {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-            <Form onSubmit={handleOnSubmit}>
-                <Form.Group controlId="nombre">
-                    <Form.Control
-                        className="input-control"
-                        type="text"
-                        name="nombre"
-                        value={nombre}
-                        placeholder="Nombre"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Form.Group controlId="descripcion">
-                    <Form.Control
-                        className="input-control"
-                        type="text"
-                        name="descripcion"
-                        value={descripcion}
-                        placeholder="Descripción"
-                        onChange={handleInputChange}
-                    />
-                </Form.Group>
-                <Button variant="primary" type="submit" className="submit-btn">
-                    Crear
-                </Button>
-            </Form>
-        </div>
-    );
-};
+        <div>
+            <form onSubmit={e => {
+                
+                e.preventDefault();
 
-export default PostForm;
+                if (!nombre.value.trim() || !descripcion.value.trim()) {
+                    return;
+                }
+
+                let post = {
+                    id : parseInt(Math.random() * 1000),
+                    nombre: nombre.value,
+                    descripcion: descripcion.value
+                };
+
+                dispatch(addPost(post));
+                
+                nombre.value = '';
+                descripcion.value = '';
+
+            }}>
+                <input ref={node => {
+                    nombre = node
+                }} />
+                <input ref={node => {
+                    descripcion = node
+                }} />
+                <button type="submit">
+                    Crear
+                </button>
+            </form>
+        </div>
+    )
+}
+// AddPost = connect()(AddPost);
+
+export default AddPost;
