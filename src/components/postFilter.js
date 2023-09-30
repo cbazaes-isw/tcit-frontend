@@ -10,8 +10,6 @@ const PostFilter = () => {
     
     const queryPosts = (query) => {
 
-        console.log('Intentando filtrar', query)
-
         dispatch(filterPost(query))
 
     }

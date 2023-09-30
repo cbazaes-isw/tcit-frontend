@@ -1,6 +1,6 @@
 import './App.css';
 import PostsList from './components/postsList';
-import PostCreate from './components/postCreate';
+import PostForm from './components/postForm';
 import PostFilter from './components/postFilter';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <PostFilter />
       <PostsList />
-      <PostCreate />
+      <PostForm />
     </div>
   );
 }
