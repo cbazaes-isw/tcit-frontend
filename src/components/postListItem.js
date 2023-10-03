@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
-import { deletePost } from '../features/postsSlice'
+import { removePost } from '../features/postsSlice'
 
 const PostListItem = ({ post }) => {
 
@@ -10,10 +10,10 @@ const PostListItem = ({ post }) => {
 
     if (!post) return
 
-    const onClick = (id) => {
+    const onClick = async (id) => {
 
         // Dispatching post delete instruction.
-        dispatch(deletePost(id));
+        await dispatch(removePost(id));
 
     };
 
