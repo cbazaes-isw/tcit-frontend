@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+const { REACT_APP_TCIT_API_URL } = process.env;
 const SLICE_KEY = 'posts';
 
 const initialState = {
@@ -11,24 +12,11 @@ const initialState = {
 export const fetchPosts = createAsyncThunk(
   `${SLICE_KEY}/fetchPosts`,
   async () => {
-    // const response = await client.get('/fakeApi/todos');
-    // return response.todos;
 
-    return new Promise((resolve, reject) => {
-
-      const posts = [
-        { id: 1, nombre: "NOMBRE POST 1 Cristian", descripcion: "DESCRIPCION POST 1 Cristian" },
-        { id: 2, nombre: "NOMBRE POST 2 Gabriel", descripcion: "DESCRIPCION POST 2 Gabriel" },
-        { id: 3, nombre: "NOMBRE POST 3 Vicente", descripcion: "DESCRIPCION POST 3 Vicente" },
-        { id: 4, nombre: "NOMBRE POST 4 Marjorie", descripcion: "DESCRIPCION POST 4 Marjorie" },
-        { id: 5, nombre: "NOMBRE POST 5 Renato", descripcion: "DESCRIPCION POST 5 Renato" },
-        { id: 6, nombre: "NOMBRE POST 6 Simón", descripcion: "DESCRIPCION POST 6 Simón" },
-        { id: 7, nombre: "NOMBRE POST 7 Clemente", descripcion: "DESCRIPCION POST 7 Clemente" }
-      ];
-
-      return resolve(posts);
-
-    });
+    let requestOptions = { mode: "cors", method: "GET" };
+    let response = await fetch(`${REACT_APP_TCIT_API_URL}/posts`, requestOptions);
+    let posts = await response.json();
+    return posts;
 
   }
 );
@@ -36,30 +24,33 @@ export const fetchPosts = createAsyncThunk(
 export const savePost = createAsyncThunk(
   `${SLICE_KEY}/savePost`,
   async (post) => {
-    // const initialTodo = { text }
-    // const response = await client.post('/fakeApi/todos', { todo: initialTodo })
-    // return response.todo
 
-    return new Promise((resolve, reject) => {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
-      return resolve(post);
+    let requestOptions = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(post),
+      mode: 'cors'
+    };
 
-    });
+    let response = await fetch(`${REACT_APP_TCIT_API_URL}/posts`, requestOptions);
+    let postCreated = await response.json();
+    return postCreated;
+
   }
 );
 
 export const removePost = createAsyncThunk(
   `${SLICE_KEY}/removePost`,
   async (postId) => {
-    // const initialTodo = { text }
-    // const response = await client.post('/fakeApi/todos', { todo: initialTodo })
-    // return response.todo
 
-    return new Promise((resolve, reject) => {
+    let requestOptions = { mode: "cors", method: "DELETE" };
+    let response = await fetch(`${REACT_APP_TCIT_API_URL}/posts/${postId}`, requestOptions);
+    let deletedPost = await response.json();
+    return deletedPost;
 
-      return resolve(postId);
-
-    });
   }
 );
 
@@ -93,9 +84,9 @@ export const postsSlice = createSlice({
       .addCase(removePost.fulfilled, (state, action) => {
 
         // Updating app state when a post id deleted.
-        const postId = action.payload;
+        const deletedPost = action.payload;
 
-        const postIndex = state.posts.findIndex(p => p.id === postId);
+        const postIndex = state.posts.findIndex(p => p.id === deletedPost.id);
         state.posts.splice(postIndex, 1);
 
       })

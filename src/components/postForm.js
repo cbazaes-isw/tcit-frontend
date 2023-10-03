@@ -20,7 +20,6 @@ let AddPost = () => {
 
         // Preparing post object to be dispatched.
         let post = {
-            id: parseInt(Math.random() * 1000),
             nombre: nombre.value,
             descripcion: descripcion.value
         };
