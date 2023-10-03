@@ -27,6 +27,10 @@ export const postsSlice = createSlice({
       const postIndex = state.posts.findIndex(p => p.id === postId);
       state.posts.splice(postIndex, 1);
 
+      if (state.filter) {
+        const filteredPostIndex = state.filtered.findIndex(p => p.id === postId);
+        state.filtered.splice(filteredPostIndex, 1);
+      }
     },
     filterPost: (state, action) => {
 
