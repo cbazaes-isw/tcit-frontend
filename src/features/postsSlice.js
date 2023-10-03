@@ -67,23 +67,6 @@ export const postsSlice = createSlice({
   name: SLICE_KEY,
   initialState,
   reducers: {
-    addPost: (state, action) => {
-
-      // Updating app state when a post is added.
-      const post = action.payload;
-
-      state.posts.push(post);
-
-    },
-    deletePost: (state, action) => {
-
-      // Updating app state when a post id deleted.
-      const postId = action.payload;
-
-      const postIndex = state.posts.findIndex(p => p.id === postId);
-      state.posts.splice(postIndex, 1);
-
-    },
     filterPost: (state, action) => {
 
       // Updating app state when a query occurs.
