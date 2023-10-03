@@ -4,8 +4,6 @@ import { removePost } from '../features/postsSlice'
 
 const PostListItem = ({ post }) => {
 
-    console.log('PostListItem', post);
-
     const dispatch = useDispatch();
 
     if (!post) return
