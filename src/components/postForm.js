@@ -12,7 +12,7 @@ let AddPost = () => {
     return (
         <div>
             <form onSubmit={e => {
-                
+
                 e.preventDefault();
 
                 // Little validation on nombre and descripcion values.
@@ -22,23 +22,27 @@ let AddPost = () => {
 
                 // Preparing post object to be dispatched.
                 let post = {
-                    id : parseInt(Math.random() * 1000),
+                    id: parseInt(Math.random() * 1000),
                     nombre: nombre.value,
                     descripcion: descripcion.value
                 };
 
                 // Dispatch post creation.
                 dispatch(addPost(post));
-                
+
                 // Reset form.
                 nombre.value = '';
                 descripcion.value = '';
 
             }}>
-                <input ref={node => {
-                    nombre = node
-                }} />
-                <input ref={node => {
+                <input
+                    placeholder='Nombre'
+                    ref={node => {
+                        nombre = node
+                    }} />
+                <input
+                    placeholder='Descripción'
+                    ref={node => {
                     descripcion = node
                 }} />
                 <button type="submit">

@@ -22,6 +22,7 @@ const PostFilter = () => {
             type="text"
             name="query"
             id="query"
+            placeholder='Filtro de nombre'
             onChange={onChangeHandle}
             value={query}
         />
