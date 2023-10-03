@@ -6,10 +6,10 @@ const PostsList = () => {
 
   // This list needs to be updated each time a post
   // creation, post elimination or post filtering ocurrs.
-  const posts = useSelector(state => state.filter ? state.filtered : state.posts)
+  const posts = useSelector(state => state.filter ? state.posts.filter(p => p.nombre.includes(state.filter)) : state.posts);
 
   return <table>
-    < thead >
+    <thead >
       <tr>
         <th>Nombre</th>
         <th>Descripcion</th>

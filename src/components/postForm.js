@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
-import { addPost } from '../features/postsSlice'
+import { savePost } from '../features/postsSlice'
 
 let AddPost = () => {
 
@@ -9,32 +9,34 @@ let AddPost = () => {
     let nombre;
     let descripcion;
 
+    const handleOnSubmit = async e => {
+
+        e.preventDefault();
+
+        // Little validation on nombre and descripcion values.
+        if (!nombre.value.trim() || !descripcion.value.trim()) {
+            return;
+        }
+
+        // Preparing post object to be dispatched.
+        let post = {
+            id: parseInt(Math.random() * 1000),
+            nombre: nombre.value,
+            descripcion: descripcion.value
+        };
+
+        // Dispatch post creation.
+        await dispatch(savePost(post));
+
+        // Reset form.
+        nombre.value = '';
+        descripcion.value = '';
+
+    };
+
     return (
         <div>
-            <form onSubmit={e => {
-
-                e.preventDefault();
-
-                // Little validation on nombre and descripcion values.
-                if (!nombre.value.trim() || !descripcion.value.trim()) {
-                    return;
-                }
-
-                // Preparing post object to be dispatched.
-                let post = {
-                    id: parseInt(Math.random() * 1000),
-                    nombre: nombre.value,
-                    descripcion: descripcion.value
-                };
-
-                // Dispatch post creation.
-                dispatch(addPost(post));
-
-                // Reset form.
-                nombre.value = '';
-                descripcion.value = '';
-
-            }}>
+            <form onSubmit={handleOnSubmit}>
                 <input
                     placeholder='Nombre'
                     ref={node => {
@@ -43,8 +45,8 @@ let AddPost = () => {
                 <input
                     placeholder='Descripción'
                     ref={node => {
-                    descripcion = node
-                }} />
+                        descripcion = node
+                    }} />
                 <button type="submit">
                     Crear
                 </button>
